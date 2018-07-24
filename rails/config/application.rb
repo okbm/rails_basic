@@ -19,6 +19,12 @@ module RailsBasic
       g.javascripts false
       g.helper false
       g.test_framework false
+      g.template_engine :slim
     end
+
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+    config.active_record.time_zone_aware_types = [:datetime]
+
   end
 end
