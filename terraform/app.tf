@@ -73,6 +73,46 @@ resource "null_resource" "provision_master" {
   }
 }
 
+resource "aws_route53_zone" "primary" {
+  name = "${var.aws_web_domain}"
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = "${aws_route53_zone.primary.zone_id}"
+  name    = "${var.aws_web_domain}"
+  type    = "A"
+  ttl     = "300"
+  records = ["${aws_eip.web.public_ip}"]
+}
+
+resource "aws_elb" "web" {
+  name    = "tf-elb"
+  subnets = ["${aws_subnet.public_web.id}"]
+
+  security_groups = ["${aws_security_group.app.id}"]
+
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
+
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    target              = "HTTP:80/"
+    interval            = 30
+  }
+
+  instances                   = ["${aws_instance.web.id}"]
+  cross_zone_load_balancing   = true
+  idle_timeout                = 400
+  connection_draining         = true
+  connection_draining_timeout = 400
+}
+
 output "elastic_ip_of_web" {
   value = "${aws_eip.web.public_ip}"
 }
