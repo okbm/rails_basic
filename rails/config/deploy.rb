@@ -40,6 +40,7 @@ namespace :puma do
 end
 
 namespace :deploy do
+
   desc "Make sure local git is in sync with remote."
   task :confirm do
     on roles(:app) do
@@ -66,7 +67,7 @@ namespace :deploy do
   after  :finishing,    :cleanup
 end
 
-set :keep_releases, 5
+set :keep_releases, 3
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

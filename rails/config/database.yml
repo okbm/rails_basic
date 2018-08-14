@@ -49,6 +49,10 @@ test:
 #
 production:
   <<: *default
+  # username: rails_basic
+  # password: <%= ENV['RAILS_BASIC_DATABASE_PASSWORD'] %>
   database: rails_basic_production
-  username: rails_basic
-  password: <%= ENV['RAILS_BASIC_DATABASE_PASSWORD'] %>
+  host:     <%= Rails.application.credentials.db[:host] %>
+  username: <%= Rails.application.credentials.db[:username] %>
+  password: <%= Rails.application.credentials.db[:password] %>
+  reaping_frequency: 10
