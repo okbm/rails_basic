@@ -71,6 +71,17 @@ resource "null_resource" "provision_master" {
       "/tmp/script.sh args",
     ]
   }
+
+  provisioner "file" {
+    source      = "conf/nginx.conf"
+    destination = "/tmp/nginx.conf"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo cp /tmp/nginx.conf /etc/nginx/",
+    ]
+  }
 }
 
 resource "aws_route53_zone" "primary" {
