@@ -7,6 +7,11 @@ resource "aws_vpc" "tf_vpc" {
   tags {
     Name = "tf_vpc"
   }
+
+  // デバッグのため消せるように強制削除させる
+  lifecycle {
+    prevent_destroy       = false
+  }
 }
 
 resource "aws_subnet" "public_web" {
@@ -92,6 +97,11 @@ resource "aws_security_group_rule" "web" {
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = "${aws_security_group.app.id}"
+
+  // デバッグのため消せるように強制削除させる
+  lifecycle {
+    prevent_destroy = false
+  }
 }
 
 resource "aws_security_group_rule" "all" {
@@ -129,5 +139,9 @@ resource "aws_db_subnet_group" "main" {
 
   tags {
     Name = "tf_dbsubnet"
+  }
+
+  lifecycle {
+    ignore_changes = ["name"]
   }
 }
