@@ -9,7 +9,7 @@ $ cat .ssh/id_rsa.pub # add github deploy key
 $ cat config/master.key | pbcopy
 
 # ec2
-$ mkdir /home/ec2-user/rails_basic/shared/config/
+$ mkdir /home/ec2-user/rails_basic/shared/config/ -p
 $ vi /home/ec2-user/rails_basic/shared/config/master.key
 
 # mac
@@ -37,6 +37,9 @@ $ bundle exec rake db:create RAILS_ENV=production
 ```
 $ bundle exec cap production deploy --dry-run
 $ bundle exec cap production deploy
+
+# ec2
+$ sudo nginx -s reload
 ```
 
 あとはroute53の設定等
