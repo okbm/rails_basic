@@ -18,6 +18,5 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def asset_host
-    "#{Rails.root}" + '/public' if Rails.env.test? || (Rails.env.development? && storage.uploader.mounted_as == :file)
   end
 end

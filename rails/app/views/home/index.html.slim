@@ -1,1 +1,8 @@
 h1 title
+
+hr
+= form_for Image.new, url: images_path, method: :post do |f|
+  .form
+    = f.file_field :file, name: 'file', class: 'form__input', multiple: true
+
+  = f.submit '保存する'
