@@ -25,4 +25,10 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-rbenv-vars'
   gem 'capistrano-bundler'
+
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
 end
